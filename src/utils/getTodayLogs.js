@@ -93,7 +93,7 @@ const fetchAttendanceLogs = async (retryCount = 0) => {
 };
 
 // Schedule cache updates every 5 minutes
-cron.schedule('*/1 * * * *', fetchAttendanceLogs);
+cron.schedule('*/3 * * * *', fetchAttendanceLogs);
 
 
 // API Controller to retrieve cached logs
@@ -194,7 +194,7 @@ const saveAttendanceInDB = async () => {
 
 
 
-cron.schedule('*/1 * * * *', saveAttendanceInDB);
+cron.schedule('*/5 * * * *', saveAttendanceInDB);
 
 
 
