@@ -21,6 +21,7 @@ const fetchAttendanceLogs = async (retryCount = 0) => {
         const { data } = await zkInstance.getAttendances();
         await zkInstance.disconnect();
 
+
         // Retry if data is not received
         if (!data) {
             if (retryCount < maxRetries) {
@@ -42,6 +43,9 @@ const fetchAttendanceLogs = async (retryCount = 0) => {
 
         // Filter logs for today's date
         const todayLogs = data.filter(log => moment(log.recordTime).format('YYYY-MM-DD') === today);
+
+        
+        
 
         // Group logs by user to determine clock-in and clock-out times
         const userAttendance = {};
@@ -80,7 +84,7 @@ const fetchAttendanceLogs = async (retryCount = 0) => {
 
         
 
-        return attendanceSummary;
+        return data;
     } catch (error) {
         console.error("Error fetching attendance logs:", error.message || error);
     } finally {
@@ -105,7 +109,7 @@ const getTodayLogs = async (req, res) => {
             
             
             const fallbackData = cache.get('todayAttendance');
-            return res.json({ success: true, data: fallbackData || [] });
+            return res.json({ success: true, data: attendance || [] });
         }
     } catch (error) {
         console.error("Error retrieving attendance logs:", error.message || error);
