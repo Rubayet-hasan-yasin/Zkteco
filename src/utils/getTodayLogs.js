@@ -79,7 +79,7 @@ const fetchAttendanceLogs = async (retryCount = 0) => {
             cache.set('todayAttendance', attendanceSummary);
             console.log(attendanceSummary);
             
-            console.log("Attendance data cached successfully at " + new Date().toISOString());
+            console.log("Attendance data cached successfully at " + moment().format('MMMM Do YYYY, h:mm:ss a'));
         }
 
         
